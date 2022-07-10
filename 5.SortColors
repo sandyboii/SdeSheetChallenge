@@ -1,0 +1,56 @@
+Dutch National Flag Problem:
+
+void sortColors(vector<int>& nums) {
+        int l=0,m=0,h=nums.size()-1;
+        
+        while(m<=h){
+            if(nums[m]==0){
+                swap(nums[m],nums[l]);
+                m++;
+                l++;
+            }
+            else if(nums[m]==1){
+                m++;
+            }
+            else{
+                swap(nums[h],nums[m]);
+                h--;
+            }
+        }
+    }
+    
+ 
+Counting Sort:
+
+void sortColors(vector<int>& nums) {
+        int cOne=0, cTwo=0, cZero=0;
+        for(int i=0;i<nums.size();i++){
+            switch(nums[i]){
+                    case 0:
+                        cZero++;
+                    break;
+                    case 1:
+                        cOne++;
+                    break;
+                    default:
+                        cTwo++;
+                    break;
+            }
+        }
+        int i=0;
+        while(cZero){
+            nums[i]=0;
+            i++;
+            cZero--;
+        }
+        while(cOne){
+            nums[i]=1;
+            i++;
+            cOne--;
+        }
+        while(cTwo){
+            nums[i]=2;
+            i++;
+            cTwo--;
+        }
+    }
