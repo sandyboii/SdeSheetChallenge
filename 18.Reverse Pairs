@@ -1,0 +1,52 @@
+vector<int> arr;
+    
+    int merge(int low,int mid,int high){
+          int total = 0;
+          int j = mid + 1;
+          for (int i = low; i <= mid; i++) {
+            while (j <= high && arr[i] > 2LL * arr[j]) {
+              j++;
+            }
+            total += (j - (mid + 1));
+          }
+
+          vector < int > t;
+          int left = low, right = mid + 1;
+
+          while (left <= mid && right <= high) {
+
+            if (arr[left] <= arr[right]) {
+              t.push_back(arr[left++]);
+            } else {
+              t.push_back(arr[right++]);
+            }
+          }
+
+          while (left <= mid) {
+            t.push_back(arr[left++]);
+          }
+          while (right <= high) {
+            t.push_back(arr[right++]);
+          }
+
+          for (int i = low; i <= high; i++) {
+            arr[i] = t[i - low];
+          }
+          return total;
+    }
+    
+    int mergeSort(int low, int high){
+        if (low >= high) return 0;
+        int mid=low+((high-low)/2);
+        
+        int pairs=mergeSort(low,mid);
+        pairs+=mergeSort(mid+1,high);
+        pairs+= merge(low,mid,high);
+        return pairs;
+        
+    }
+    
+    int reversePairs(vector<int>& nums) {
+        arr=nums;
+        return mergeSort(0,nums.size()-1);
+    }
